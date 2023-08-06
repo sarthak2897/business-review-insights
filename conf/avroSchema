@@ -1,0 +1,27 @@
+{
+  "fields": [
+    {
+      "name": "reviewId",
+      "type": "string"
+    },
+    {
+      "name": "userId",
+      "type": "string"
+    },
+    {
+      "name": "businessId",
+      "type": "string"
+    },
+    {
+      "name": "stars",
+      "type": "double"
+    },
+    {
+      "name": "reviewMessage",
+      "type": "string"
+    }
+  ],
+  "name": "BusinessReview",
+  "namespace": "models",
+  "type": "record"
+}
