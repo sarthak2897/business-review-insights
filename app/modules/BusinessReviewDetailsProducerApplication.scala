@@ -24,10 +24,10 @@ class BusinessReviewDetailsProducerApplication @Inject()(implicit val ac : Actor
   final val logger : Logger = Logger(this.getClass)
   logger.info("Producing business review data")
   val parallelism = 10
-  //C:\gcs_capstone_dezoomcamp\yelp_academic_dataset_review_invalid.json
-  FileIO.fromPath(Paths.get("conf\\test_file.json"))
+  //Test file : conf\test_file.json
+  FileIO.fromPath(Paths.get("C:\\gcs_capstone_dezoomcamp\\yelp_academic_dataset_review.json"))
     .via(Framing.delimiter(ByteString("\n"),8092))
-    .map(_.utf8String)
+    .map(_.utf8String).take(15)
     .mapAsync(parallelism)(transformBusinessReviewMessages)
     .map(kafkaProducer.produceBusinessReviewMessages)
     .withAttributes(ActorAttributes.supervisionStrategy(decider))

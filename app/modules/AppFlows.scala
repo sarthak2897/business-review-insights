@@ -3,6 +3,7 @@ package modules
 import akka.kafka.ConsumerMessage
 import akka.stream.Supervision
 import com.sksamuel.avro4s.RecordFormat
+import dao.CassandraDao
 import exception.InvalidJsonMessageException
 import models.{BusinessReview, KafkaMessage}
 import org.apache.avro.generic.GenericRecord
@@ -34,5 +35,11 @@ object AppFlows {
     case e : Exception =>
       logger.error("Error occurred : "+ e.printStackTrace())
       Supervision.Stop
+  }
+
+  def insertBusinessReviews(kafkaMessage: KafkaMessage,cassandraDao: CassandraDao)(implicit ec : ExecutionContext) = {
+    for {
+      _ <- cassandraDao.insertBusinessReviewToCassandra(kafkaMessage.businessReviewDetails)
+    } yield kafkaMessage.kafkaOffset
   }
 }
