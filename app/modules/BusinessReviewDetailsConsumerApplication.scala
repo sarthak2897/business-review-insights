@@ -28,11 +28,8 @@ class BusinessReviewDetailsConsumerApplication @Inject() (implicit val ac : Acto
   kafkaConsumer.kafkaSource
     .buffer(500, OverflowStrategy.backpressure)
     .mapAsync(parallelism)(processKafkaMessage)
-    .map(x => {
-      logger.info(""+x.businessReviewDetails)
-      x.kafkaOffset
-    })
-    //.mapAsync(parallelism)(kafkaMsg => AppFlows.insertBusinessReviews(kafkaMsg,cassandraDao))
+    .via(cassandraDao.cassandraFlow)
+    .map(_.kafkaOffset)
     .withAttributes(ActorAttributes.supervisionStrategy(AppFlows.decider))
     .runWith(Committer.sink(CommitterSettings(ac)))
 

@@ -33,9 +33,9 @@ class KafkaProducer @Inject() (implicit ac : ActorSystem, appConfig: AppConfig) 
 
   def produceBusinessReviewMessages(businessReview: BusinessReview) = {
     //To test incorrect produced message different from one in schema registry
-    val bre = BusinessReviewExtra(businessReview.reviewId
-      ,businessReview.businessId,businessReview.userId,businessReview.stars)
-    val value: Record = RecordFormat[BusinessReviewExtra].to(bre)
+//    val bre = BusinessReviewExtra(businessReview.reviewId
+//      ,businessReview.businessId,businessReview.userId,businessReview.stars)
+    val value: Record = RecordFormat[BusinessReview].to(businessReview)
     new ProducerRecord[String,AnyRef](appConfig.kafkaTopic, null, value)
   }
 }

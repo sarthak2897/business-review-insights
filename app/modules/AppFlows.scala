@@ -37,9 +37,9 @@ object AppFlows {
       Supervision.Stop
   }
 
-  def insertBusinessReviews(kafkaMessage: KafkaMessage,cassandraDao: CassandraDao)(implicit ec : ExecutionContext) = {
-    for {
-      _ <- cassandraDao.insertBusinessReviewToCassandra(kafkaMessage.businessReviewDetails)
-    } yield kafkaMessage.kafkaOffset
-  }
+//  def insertBusinessReviews(kafkaMessage: KafkaMessage,cassandraDao: CassandraDao)(implicit ec : ExecutionContext) = {
+//    for {
+//      _ <- cassandraDao.insertBusinessReviewToCassandra(kafkaMessage.businessReviewDetails)
+//    } yield kafkaMessage.kafkaOffset
+//  }
 }
