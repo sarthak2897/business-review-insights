@@ -26,6 +26,11 @@ lazy val kafkaAvroDependency = Seq(
 
 lazy val avroDependency = "com.sksamuel.avro4s" %% "avro4s-core" % "3.1.1"
 
+lazy val cassandraDependencies = Seq(
+  "com.lightbend.akka" %% "akka-stream-alpakka-cassandra" % "4.0.0",
+  "com.datastax.cassandra" % "cassandra-driver-core" % "4.0.0"
+)
+
 libraryDependencies += avroDependency
 libraryDependencies += kafkaDependency
 libraryDependencies += guice
@@ -33,7 +38,9 @@ libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0
 
 
 
-libraryDependencies ++= (akkaDependencies ++ kafkaAvroDependency)
+libraryDependencies ++= (akkaDependencies ++ kafkaAvroDependency ++ cassandraDependencies)
+
+dependencyOverrides += "com.fasterxml.jackson.core" % "jackson-databind" % "2.11.4"
 
 
 

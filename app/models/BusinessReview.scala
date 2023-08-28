@@ -9,6 +9,13 @@ case class BusinessReview(reviewId : String,
                           stars : Double,
                           reviewMessage : String)
 
+case class BusinessReviewExtra(reviewId : String,
+                               userId : String,
+                               businessId : String,
+                               stars : Double,
+                               //reviewMessage : String,
+                               businessType : String = "Other")
+
 object BusinessReview {
   implicit val reads : Reads[BusinessReview] = (
     (__ \ "review_id").read[String] and
